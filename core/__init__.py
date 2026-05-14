@@ -1,1 +1,0 @@
-"""Reading assistant core package."""

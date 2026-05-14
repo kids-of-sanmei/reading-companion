@@ -1,0 +1,20 @@
+{
+  "source_dir": "S:\\ai-agent\\study\\stage01_final_acceptance\\samples",
+  "file_count": 2,
+  "files": [
+    {
+      "name": "example.md",
+      "path": "example.md",
+      "lines": 5,
+      "chars": 80,
+      "preview": "# 示例学习笔记\n\n这是第 1 阶段验收任务的 Markdown 示例文件。\n\n你可以用它测试 `scan`、`summary` 和 `export` 命令。\n"
+    },
+    {
+      "name": "todo.txt",
+      "path": "todo.txt",
+      "lines": 4,
+      "chars": 57,
+      "preview": "复习 Python 函数\n复习 pathlib 文件路径处理\n复习 json 文件读写\n完成第 1 阶段验收任务\n"
+    }
+  ]
+}
