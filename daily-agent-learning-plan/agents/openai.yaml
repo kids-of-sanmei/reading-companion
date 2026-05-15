@@ -1,4 +1,4 @@
 interface:
-  display_name: "Daily Agent Learning Plan"
-  short_description: "Generate stable daily Agent engineering study tasks."
-  default_prompt: "Generate today's Agent engineering learning task from the roadmap and update the study state."
+  display_name: "Structured Learning Roadmap"
+  short_description: "Create a roadmap, track learning state, and generate complete task directories."
+  default_prompt: "Create or continue the learning roadmap, update study state, and generate the next complete task directory."
