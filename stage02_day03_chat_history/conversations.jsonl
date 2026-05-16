@@ -1,0 +1,3 @@
+{"timestamp":"2026-05-16T00:00:00+08:00","user":"示例：我的名字是小明。","assistant":"示例：我记住了，你的名字是小明。","mode":"example"}
+{"timestamp": "2026-05-16T15:40:24+08:00", "user": "????????", "assistant": "这是 dry-run 回复：我已收到第一轮问题。", "mode": "dry-run"}
+{"timestamp": "2026-05-16T15:40:24+08:00", "user": "?????????????", "assistant": "这是 dry-run 回复：当前共有 2 轮用户输入，我会参考前文回答。", "mode": "dry-run"}

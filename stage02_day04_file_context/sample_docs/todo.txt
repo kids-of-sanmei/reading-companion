@@ -1,0 +1,5 @@
+今日练习：
+1. 读取 sample_docs 目录下的 Markdown 和 TXT 文件。
+2. 为每个文件生成包含 source 和 content 的 context block。
+3. 把 context block 和用户问题一起传给模型。
+4. 在 answers.md 中记录两次运行观察。

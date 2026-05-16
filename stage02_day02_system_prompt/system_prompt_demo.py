@@ -5,7 +5,9 @@ import os
 
 from openai import OpenAI
 
-DEFAULT_MODEL = "gpt-5.5"
+from dotenv import load_dotenv
+
+load_dotenv()
 
 SYSTEM_PROMPTS = {
     "concise": "你是一个回答简洁的 AI 助手。用不超过三句话回答用户问题。",
@@ -29,21 +31,23 @@ def parse_args() -> argparse.Namespace:
 
 
 def require_api_key() -> str:
-    api_key = os.getenv("OPENAI_API_KEY")
+    api_key = os.getenv("API_KEY")
     if not api_key:
-        raise RuntimeError("缺少环境变量 OPENAI_API_KEY。请先设置 API key。")
+        raise RuntimeError("缺少环境变量 API_KEY。请先设置 API key。")
     return api_key
 
 
 def call_openai(style: str, user_prompt: str, api_key: str) -> str:
-    model = os.getenv("OPENAI_MODEL", DEFAULT_MODEL)
-    client = OpenAI(api_key=api_key)
-    response = client.responses.create(
+    model = os.getenv("MODEL_NAME", "deepseek-v4-flash")
+    client = OpenAI(api_key=api_key, base_url=os.getenv("BASE_URL", "https://api.openai.com/v1"))
+    response = client.chat.completions.create(
         model=model,
-        instructions=SYSTEM_PROMPTS[style],
-        input=user_prompt,
+        messages=[
+            {"role": "system", "content": SYSTEM_PROMPTS[style]},
+            {"role": "user", "content": user_prompt},
+        ],
     )
-    return response.output_text
+    return response.choices[0].message.content.strip()
 
 
 def main() -> int:
