@@ -1,0 +1,7 @@
+{"chunk_id": "chunk_001", "source": "sample_docs\\long_note.md", "start_char": 0, "end_char": 24, "text": "# Agent 学习笔记：从文件上下文到 RAG"}
+{"chunk_id": "chunk_002", "source": "sample_docs\\long_note.md", "start_char": 26, "end_char": 160, "text": "在前面的练习中，我们已经学习了如何读取本地 Markdown 和 TXT 文件，并把文件内容整理成带有来源信息的 context block。这个能力可以让模型基于用户提供的资料回答问题，但它仍然有一个明显限制：当文件很长时，不能把所有内容都一次性放进 prompt。"}
+{"chunk_id": "chunk_003", "source": "sample_docs\\long_note.md", "start_char": 162, "end_char": 272, "text": "大模型的上下文窗口虽然越来越大，但上下文不是无限资源。把整篇文档直接传给模型会增加成本，也会让模型更难关注真正相关的段落。更重要的是，在真实知识库场景中，用户的问题通常只需要文档中的少数片段，不需要整本书或整个项目说明。"}
+{"chunk_id": "chunk_004", "source": "sample_docs\\long_note.md", "start_char": 274, "end_char": 398, "text": "RAG 的基本思路是先把资料切成小块，然后为每个小块生成 embedding。用户提问时，系统也会把问题转换成 embedding，再从知识库中找出最相似的若干个 chunk。最后，只把这些相关 chunk 拼进 prompt，让模型基于它们回答。"}
+{"chunk_id": "chunk_005", "source": "sample_docs\\long_note.md", "start_char": 400, "end_char": 539, "text": "文本切分会直接影响检索质量。chunk 太大时，一个 chunk 里可能包含多个主题，检索命中后会带入很多无关内容。chunk 太小时，单个片段可能缺少完整语义，模型看到后无法理解上下文。overlap 的作用是让相邻 chunk 共享一部分内容，减少重要句子刚好被切断的问题。"}
+{"chunk_id": "chunk_006", "source": "sample_docs\\long_note.md", "start_char": 541, "end_char": 653, "text": "实际项目中，文本切分通常不会只按固定长度切。更好的方式是优先按 Markdown 标题、段落、句子等自然结构切分，再在片段过长时继续按长度切。这样可以尽量保留语义边界，也方便后续把来源、标题、页码、段落编号等元数据一起保存。"}
+{"chunk_id": "chunk_007", "source": "sample_docs\\long_note.md", "start_char": 655, "end_char": 779, "text": "今天的目标不是完成完整 RAG，而是理解切分这一步为什么重要，并写出一个最小可运行脚本。完成后，你应该能解释 chunk、overlap、source metadata 之间的关系，并知道下一步可以把这些 chunk 送去生成 embedding。"}

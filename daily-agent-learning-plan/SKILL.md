@@ -1,6 +1,6 @@
 ---
 name: daily-agent-learning-plan
-description: Create and maintain a complete learning system from a user's learning topic, target, and mastery requirements. Use when the user asks for a long-term roadmap, daily learning task, next learning step, stage acceptance task, learning progress update, or continuity after context loss.
+description: Use when the user asks for a long-term learning roadmap, daily learning task, next learning step, stage acceptance task, learning progress update, study state recovery, or continuity after context loss.
 ---
 
 # Structured Learning Roadmap And Task System
@@ -187,12 +187,22 @@ When the user asks for a roadmap, current task, next task, progress update, or s
 1. Read `agent_learning_state.md` if it exists; create it if missing.
 2. Read `daily_agent_tasks.md` if it exists; create it if missing.
 3. Read `agent_developer_roadmap.md` if it exists; create it if missing from user inputs or fallback assumptions.
-4. Determine the next task from the current state and roadmap.
-5. Generate exactly one task unless the user explicitly asks for multiple tasks or a full roadmap.
-6. Create the complete task directory and all required placeholder files.
-7. Update `agent_learning_state.md`.
-8. Append the task to `daily_agent_tasks.md`.
-9. In the final response, summarize the new task and link to the roadmap, state file, root task log, and task directory.
+
+Then choose the correct mode:
+
+- Progress check: if the user asks to view current progress, inspect current state, or ask where they are, do not create or edit files unless required files are missing. Summarize the current stage, current task, last completed task, blockers, whether the current task appears complete, and the next suggested task.
+- Current task: if the user asks what to do today and today's assigned task already exists, summarize the existing task and link to its directory. Do not create a duplicate task.
+- Next task: if the user asks for the next task after completing the current one, or explicitly asks to advance, generate exactly one task unless they ask for multiple tasks or a full roadmap.
+- Roadmap: if the user asks for a roadmap or the roadmap is missing, create or update the full roadmap before assigning tasks.
+- Stage jump: if the user asks to jump forward or backward, update state to the requested stage and record what was skipped or revisited.
+
+When generating a new task:
+
+1. Determine the next task from the current state and roadmap.
+2. Create the complete task directory and all required placeholder files.
+3. Update `agent_learning_state.md`.
+4. Append the task to `daily_agent_tasks.md`.
+5. In the final response, summarize the new task and link to the roadmap, state file, root task log, and task directory.
 
 ## State Update Rules
 
@@ -268,6 +278,10 @@ Use `references/roadmap-outline.md` only as a fallback seed. If `agent_developer
 ## Output Discipline
 
 Do not produce only a broad study plan when the user asks for today's task.
+
+Do not create a new task when the user only asks to view learning progress.
+
+Do not create duplicate daily task entries when today's assigned task already exists.
 
 Do not create a task without a task directory.
 

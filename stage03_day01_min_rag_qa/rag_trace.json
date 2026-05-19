@@ -1,0 +1,30 @@
+{
+  "query": "为什么长文档不能直接放进 prompt？",
+  "top_k": 3,
+  "mode": "offline",
+  "retrieved_context": [
+    {
+      "chunk_id": "chunk_002",
+      "source": "sample_docs\\long_note.md",
+      "score": 0.25,
+      "text": "在前面的练习中，我们已经学习了如何读取本地 Markdown 和 TXT 文件，并把文件内容整理成带有来源信息的 context block。这个能力可以让模型基于用户提供的资料回答问题，但它仍然有一个明显限制：当文件很长时，不能把所有内容都一次性放进 prompt。"
+    },
+    {
+      "chunk_id": "chunk_003",
+      "source": "sample_docs\\long_note.md",
+      "score": 0.25,
+      "text": "大模型的上下文窗口虽然越来越大，但上下文不是无限资源。把整篇文档直接传给模型会增加成本，也会让模型更难关注真正相关的段落。更重要的是，在真实知识库场景中，用户的问题通常只需要文档中的少数片段，不需要整本书或整个项目说明。"
+    },
+    {
+      "chunk_id": "chunk_004",
+      "source": "sample_docs\\long_note.md",
+      "score": 0.196116,
+      "text": "RAG 的基本思路是先把资料切成小块，然后为每个小块生成 embedding。用户提问时，系统也会把问题转换成 embedding，再从知识库中找出最相似的若干个 chunk。最后，只把这些相关 chunk 拼进 prompt，让模型基于它们回答。"
+    }
+  ],
+  "prompt": {
+    "system": "你是一个基于资料回答问题的 RAG 助手。\n只能基于提供的 context 回答。\n如果资料不足，明确说明资料不足。\n回答必须列出引用编号。",
+    "user": "请根据以下 context 回答问题。\n\n## Context\n\n[1] chunk_id=chunk_002 source=sample_docs\\long_note.md score=0.25\n在前面的练习中，我们已经学习了如何读取本地 Markdown 和 TXT 文件，并把文件内容整理成带有来源信息的 context block。这个能力可以让模型基于用户提供的资料回答问题，但它仍然有一个明显限制：当文件很长时，不能把所有内容都一次性放进 prompt。\n\n[2] chunk_id=chunk_003 source=sample_docs\\long_note.md score=0.25\n大模型的上下文窗口虽然越来越大，但上下文不是无限资源。把整篇文档直接传给模型会增加成本，也会让模型更难关注真正相关的段落。更重要的是，在真实知识库场景中，用户的问题通常只需要文档中的少数片段，不需要整本书或整个项目说明。\n\n[3] chunk_id=chunk_004 source=sample_docs\\long_note.md score=0.196116\nRAG 的基本思路是先把资料切成小块，然后为每个小块生成 embedding。用户提问时，系统也会把问题转换成 embedding，再从知识库中找出最相似的若干个 chunk。最后，只把这些相关 chunk 拼进 prompt，让模型基于它们回答。\n\n## Question\n\n为什么长文档不能直接放进 prompt？"
+  },
+  "answer": "问题：为什么长文档不能直接放进 prompt？\n\n基于当前检索到的资料，可以先给出一个资料内回答：\n- [1] 在前面的练习中，我们已经学习了如何读取本地 Markdown 和 TXT 文件，并把文件内容整理成带有来源信息的 context block。这个能力可以让模型基于用户提供的资料回答问题，但它仍然有一个明显限制：当文件很长时，不能把所有内容都一次性放进 prompt。\n- [2] 大模型的上下文窗口虽然越来越大，但上下文不是无限资源。把整篇文档直接传给模型会增加成本，也会让模型更难关注真正相关的段落。更重要的是，在真实知识库场景中，用户的问题通常只需要文档中的少数片段，不需要整本书或整个项目说明。\n- [3] RAG 的基本思路是先把资料切成小块，然后为每个小块生成 embedding。用户提问时，系统也会把问题转换成 embedding，再从知识库中找出最相似的若干个 chunk。最后，只把这些相关 chunk 拼进 prompt，让模型基于它们回答。\n\n引用：[1], [2], [3]"
+}

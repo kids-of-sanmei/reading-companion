@@ -30,6 +30,7 @@ def now_iso() -> str:
 
 def append_jsonl(path: Path, record: dict) -> None:
     with path.open("a", encoding="utf-8") as file:
+        # json.dumps 将Python dict 转换为 JSON 字符串，ensure_ascii=False 以保留非 ASCII 字符（如中文）
         file.write(json.dumps(record, ensure_ascii=False) + "\n")
 
 
@@ -68,6 +69,7 @@ def main() -> int:
             continue
 
         messages.append({"role": "user", "content": user_input})
+        print(messages)  # Debug: 打印当前消息列表
         assistant_reply = fake_reply(messages) if args.dry_run else call_model(client, model, messages)
         messages.append({"role": "assistant", "content": assistant_reply})
 
